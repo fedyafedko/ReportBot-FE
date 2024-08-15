@@ -6,7 +6,6 @@ import StatisticsContainer from "../../components/StatisticsContainer/Statistics
 const HomePage = () => {
     return (
         <Box className={styles.homePage}>
-
             <Menu activeView="home" />
             <Box className={styles.content}>
                 <StatisticsContainer />

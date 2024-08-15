@@ -95,28 +95,28 @@ const FilterPanel: React.FC<FilterProps> = ({ getFilterReports, projectName }) =
                     }}
                 />
                 {projectName != null ? null : (
-                <TextField
-                    id="outlined-select-currency"
-                    select
-                    defaultValue="1"
-                    onChange={(newValue) => setSelectedProject(newValue.target.value)}
-                    sx={{
-                        width: '200px',
-                        '& .MuiInputBase-root': {
-                            backgroundColor: '#E1F3E0',
-                            borderRadius: '15px',
-                        },
-                    }}
-                >
-                    <MenuItem value="1">
-                        Projects
-                    </MenuItem>
-                    {projects.map((project) => (
-                        <MenuItem key={project.id} value={project.name}>
-                            {project.name}
+                    <TextField
+                        id="outlined-select-currency"
+                        select
+                        defaultValue="1"
+                        onChange={(newValue) => setSelectedProject(newValue.target.value)}
+                        sx={{
+                            width: '200px',
+                            '& .MuiInputBase-root': {
+                                backgroundColor: '#E1F3E0',
+                                borderRadius: '15px',
+                            },
+                        }}
+                    >
+                        <MenuItem value="1">
+                            Projects
                         </MenuItem>
-                    ))}
-                </TextField>
+                        {projects.map((project) => (
+                            <MenuItem key={project.id} value={project.name}>
+                                {project.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                 )}
                 <TextField
                     id="outlined-select-currency"

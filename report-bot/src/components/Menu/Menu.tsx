@@ -17,7 +17,7 @@ const Menu = (props: { activeView: string }) => {
     return (
         <Box className={styles.menuBox}>
             <Box className={styles.buttonBox} >
-            <Typography sx={{ fontSize: '18px', fontWeight: 'bold', margin: '20px 0 10px 10px'}}>Manager Dashboard</Typography>
+                <Typography sx={{ fontSize: '18px', fontWeight: 'bold', margin: '20px 0 10px 10px' }}>Manager Dashboard</Typography>
                 <Box
                     className={styles.button}
                     sx={{ backgroundColor: props.activeView === 'home' ? '#E1F3E0' : 'transparent' }}
@@ -41,7 +41,6 @@ const Menu = (props: { activeView: string }) => {
                     <ChatBubbleOutlineOutlinedIcon sx={{ width: '25px', height: '25px' }} />
                     <Typography sx={{ fontSize: '18px' }}>Reports</Typography>
                 </Box>
-
                 <Box
                     className={styles.button}
                     sx={{ backgroundColor: props.activeView === 'projects' ? '#E1F3E0' : 'transparent' }}

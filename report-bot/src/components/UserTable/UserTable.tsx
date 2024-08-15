@@ -80,7 +80,7 @@ const UserTable = () => {
                 id="outlined-select-currency"
                 select
                 defaultValue="0"
-                onChange={(e) => {setSorting(parseInt(e.target.value))}}
+                onChange={(e) => { setSorting(parseInt(e.target.value)) }}
                 sx={{
                     display: 'flex',
                     alignSelf: 'flex-start',

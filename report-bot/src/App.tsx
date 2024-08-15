@@ -22,19 +22,19 @@ function App() {
   return (
     <SnackbarProvider maxSnack={3}>
       <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/home" element={<HomePage/>} />
-              <Route path="/reports" element={<ReportsPage/>} />
-              <Route path="/users" element={<UserPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/project/:id" element={<ProjectPage />} />
-              <Route path="/" element={<SignInPage />} />
-              <Route path="*" element={<div>Not Found Page</div>} />
-            </Routes>
-          </BrowserRouter>
-          </ThemeProvider>
+        <CssBaseline />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/users" element={<UserPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/project/:id" element={<ProjectPage />} />
+            <Route path="/" element={<SignInPage />} />
+            <Route path="*" element={<div>Not Found Page</div>} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </SnackbarProvider>
   );
 }

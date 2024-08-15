@@ -47,16 +47,16 @@ const ReportsPage = () => {
             {reports.length === 0 ?
               (
                 <Box className={styles.notFoundBox}>
-                    <Typography sx={{
-                      fontWeight: 'bold',
-                      fontSize: '28px',
-                    }}>No reports found</Typography>
-                    <Typography sx={{
-                      textAlign: 'center',
-                      width: '270px',
-                      fontWeight: 'bold',
-                      fontSize: '13px',
-                    }}>Sorry, but no report was found for these filters.</Typography>
+                  <Typography sx={{
+                    fontWeight: 'bold',
+                    fontSize: '28px',
+                  }}>No reports found</Typography>
+                  <Typography sx={{
+                    textAlign: 'center',
+                    width: '270px',
+                    fontWeight: 'bold',
+                    fontSize: '13px',
+                  }}>Sorry, but no report was found for these filters.</Typography>
                 </Box>
               )
               : (reports.map((report, index) => (
