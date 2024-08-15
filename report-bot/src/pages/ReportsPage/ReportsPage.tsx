@@ -109,7 +109,7 @@ const ReportsPage = () => {
                         scrollbarWidth: expandedStates[index] ? "none" : "auto",
                       }}
                     >
-                      {report.message} sdfdfds dsff dsfsf sdfsdfd dsfsdfd sdfdfsd sfddf sdfsdf
+                      {report.message}
                     </Typography>
 
                     <Button
