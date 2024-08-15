@@ -28,7 +28,7 @@
     flex-wrap: wrap;
     justify-content: center;
     overflow-y: auto;
-    max-height: 530px;
+    max-height: 90%;
     gap: 20px;
     -ms-overflow-style: none;
     scrollbar-width: none;

@@ -60,18 +60,18 @@ const StatisticsContainer = () => {
                                     <Box className={styles.totalSessionBox}>
                                         <Typography sx={{ fontSize: '18px', fontWeight: 'bold' }}>Total Sessions</Typography>
                                         <Typography sx={{ fontSize: '12px' }}>This section provides the total number of sessions.</Typography>
-                                        <Typography sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}>{sessionStatistics?.totalSessions ?? 0}</Typography>
+                                        <Typography sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center', marginTop: '3%' }}>{sessionStatistics?.totalSessions ?? 0}</Typography>
                                     </Box>
                                     <Box className={styles.secondStatistics}>
                                         <Box className={styles.secondStatisticsBox}>
                                             <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>Closed Sessions</Typography>
                                             <Typography sx={{ fontSize: '10px' }}>This section contains details about the sessions that have been closed.</Typography>
-                                            <Typography sx={{ fontSize: '20px', textAlign: 'center', fontWeight: 'bold' }}>{sessionStatistics?.closedSessions ?? 0}</Typography>
+                                            <Typography sx={{ fontSize: '20px', textAlign: 'center', fontWeight: 'bold', marginTop: '3%'}}>{sessionStatistics?.closedSessions ?? 0}</Typography>
                                         </Box>
                                         <Box className={styles.secondStatisticsBox}>
                                             <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>Opened Sessions</Typography>
                                             <Typography sx={{ fontSize: '10px' }}>This section contains details about the sessions that are currently open.</Typography>
-                                            <Typography sx={{ fontSize: '20px', textAlign: 'center', fontWeight: 'bold' }}>{sessionStatistics?.openedSessions ?? 0}</Typography>
+                                            <Typography sx={{ fontSize: '20px', textAlign: 'center', fontWeight: 'bold', marginTop: '3%' }}>{sessionStatistics?.openedSessions ?? 0}</Typography>
                                         </Box>
                                     </Box>
                                     <Box className={styles.bottomReportStatistics}>
@@ -145,19 +145,19 @@ const StatisticsContainer = () => {
                             <Typography sx={{ fontSize: '16px', fontWeight: 'bold', margin: '10px 20px 0' }}>Report statistics</Typography>
                             <Box className={styles.bottomStatisticsContainer}>
                                 <Box className={styles.bottomStatisticsBox}>
-                                    <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>Daily reports</Typography>
-                                    <Typography sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}>{reportStatistics?.daily.totalReportsMinutes ?? 0}</Typography>
-                                    <Typography sx={{ fontSize: '16px', textAlign: 'center' }}>minutes in {reportStatistics?.daily.totalProjects ?? 0} projects</Typography>
+                                    <Typography  sx={{ fontSize: '100%', fontWeight: 'bold' }}>Daily reports</Typography>
+                                    <Typography sx={{ fontSize: '150%', fontWeight: 'bold', textAlign: 'center' }}>{reportStatistics?.daily.totalReportsMinutes ?? 0}</Typography>
+                                    <Typography sx={{ fontSize: '100%', textAlign: 'center' }}>minutes in {reportStatistics?.daily.totalProjects ?? 0} projects</Typography>
                                 </Box>
                                 <Box className={styles.bottomStatisticsBox}>
-                                    <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>Weekly reports</Typography>
-                                    <Typography sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}>{reportStatistics?.weekly.totalReportsMinutes ?? 0}</Typography>
-                                    <Typography sx={{ fontSize: '16px', textAlign: 'center' }}>minutes in {reportStatistics?.weekly.totalProjects ?? 0} projects</Typography>
+                                    <Typography  sx={{ fontSize: '100%', fontWeight: 'bold' }}>Weekly reports</Typography>
+                                    <Typography sx={{ fontSize: '150%', fontWeight: 'bold', textAlign: 'center' }}>{reportStatistics?.weekly.totalReportsMinutes ?? 0}</Typography>
+                                    <Typography sx={{ fontSize: '100%', textAlign: 'center' }}>minutes in {reportStatistics?.weekly.totalProjects ?? 0} projects</Typography>
                                 </Box>
                                 <Box className={styles.bottomStatisticsBox}>
-                                    <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>Monthly reports</Typography>
-                                    <Typography sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}>{reportStatistics?.monthly.totalReportsMinutes ?? 0}</Typography>
-                                    <Typography sx={{ fontSize: '16px', textAlign: 'center' }}>minutes in {reportStatistics?.monthly.totalProjects} projects</Typography>
+                                    <Typography sx={{ fontSize: '100%', fontWeight: 'bold' }}>Monthly reports</Typography>
+                                    <Typography sx={{ fontSize: '150%', fontWeight: 'bold', textAlign: 'center' }}>{reportStatistics?.monthly.totalReportsMinutes ?? 0}</Typography>
+                                    <Typography sx={{ fontSize: '100%', textAlign: 'center' }}>minutes in {reportStatistics?.monthly.totalProjects ?? 0} projects</Typography>
                                 </Box>
                             </Box>
                         </Box>
