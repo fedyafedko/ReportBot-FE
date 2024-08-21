@@ -7,6 +7,7 @@ import { useState } from "react";
 import FilterRequest from "../../api/models/request/FilterRequest";
 import Reports from "../../api/Reports";
 import ReportResponse from "../../api/models/response/ReportResponse";
+import useNotification from "../../hooks/useNotification";
 
 function splitDateTime(dateTime: Date) {
   const dateString = new Date(dateTime).toLocaleDateString("en", {
@@ -20,6 +21,8 @@ function splitDateTime(dateTime: Date) {
 
 const ReportsPage = () => {
   const [reports, setReports] = useState<ReportResponse[]>([]);
+  const { notifyError, notifySuccess, Notification } = useNotification();
+
 
   const [expandedStates, setExpandedStates] = useState<boolean[]>(
     new Array(reports.length).fill(false)
@@ -35,6 +38,16 @@ const ReportsPage = () => {
     setExpandedStates((prevStates) =>
       prevStates.map((state, i) => (i === index ? !state : state))
     );
+  };
+
+  const handleSend = async (reportId: number) => {
+    const response = await Reports.sentToChat(reportId);
+    if (response.success) {
+      notifySuccess("Report sent to chat");
+    }
+    else {
+      notifyError("Error sending report to chat");
+    }
   };
 
   return (
@@ -111,22 +124,44 @@ const ReportsPage = () => {
                     >
                       {report.message}
                     </Typography>
-
-                    <Button
-                      variant="contained"
-                      sx={{
-                        width: "100px",
-                        height: "30px",
-                        borderRadius: "10px",
-                        color: "white",
-                        fontSize: "12px",
-                        textTransform: "none",
-                        marginTop: "10px",
-                      }}
-                      onClick={() => handleToggle(index)}
-                    >
-                      {expandedStates[index] ? "Collapse" : "View"}
-                    </Button>
+                    <Box sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      width: "100%",
+                      gap: "15px",
+                    }}>
+                      <Button
+                        variant="contained"
+                        sx={{
+                          width: "100px",
+                          height: "30px",
+                          borderRadius: "10px",
+                          color: "white",
+                          fontSize: "12px",
+                          textTransform: "none",
+                          marginTop: "10px",
+                        }}
+                        onClick={() => handleToggle(index)}
+                      >
+                        {expandedStates[index] ? "Collapse" : "View"}
+                      </Button>
+                      <Button
+                        variant="contained"
+                        sx={{
+                          width: "100px",
+                          height: "30px",
+                          borderRadius: "10px",
+                          color: "white",
+                          fontSize: "12px",
+                          textTransform: "none",
+                          marginTop: "10px",
+                        }}
+                        onClick={() => handleSend(report.id)}
+                      >
+                        Send
+                      </Button>
+                    </Box>
                   </Box>
                 </Box>
               )))}

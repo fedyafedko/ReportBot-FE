@@ -2,7 +2,7 @@ interface UserResponse {
     id: number;
     chatId: number;
     worksnapsId: number;
-    login: string;
+    username: string;
     firstName: string;
     lastName: string;
     shiftTime: number;

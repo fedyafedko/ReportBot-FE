@@ -13,10 +13,14 @@ import {
     Box,
     TextField,
     MenuItem,
+    CircularProgress,
+    Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import UserResponse from "../../api/models/response/UserResponse";
 import User from "../../api/User";
+import UserStatisticResponse from "../../api/models/response/UserStatisticResponse";
+import ProjectResponse from "../../api/models/response/ProjectResponse";
+import Project from "../../api/Project";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -35,25 +39,32 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const UserTable = () => {
-    const [users, setUsers] = useState<UserResponse[]>([]);
+    const [users, setUsers] = useState<UserStatisticResponse[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(7);
     const [loading, setLoading] = useState(true);
-    const [sorting, setSorting] = useState(0);
+    const [filter, setFilter] = useState('');
+    const [projects, setProjects] = useState<ProjectResponse[]>([]);
 
     useEffect(() => {
         const getUsers = async () => {
             setLoading(true);
-            const response = await User.getAll(sorting);
+            const response = await User.getAll(filter === 'none' ? '' : filter);
             if (response.success) {
                 setUsers(response.data ?? []);
             }
             setLoading(false);
         };
         getUsers();
-    }, [sorting]);
+    }, [filter]);
 
     useEffect(() => {
+        const getProjects = async () => {
+            const response = await Project.getAll();
+            if (response.success) {
+                setProjects(response.data ?? []);
+            }
+        };
         const calculateRowsPerPage = () => {
             const containerHeight = document.getElementById('dataGridContainer')?.clientHeight ?? 0;
             const rowHeight = 72;
@@ -61,6 +72,7 @@ const UserTable = () => {
             setRowsPerPage(calculatedRows);
         };
 
+        getProjects();
         calculateRowsPerPage();
 
         window.addEventListener('resize', calculateRowsPerPage);
@@ -79,16 +91,16 @@ const UserTable = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
             width: '90%',
             gap: '20px',
             height: '100%',
+            padding: '20px',
         }}>
             <TextField
                 id="outlined-select-currency"
                 select
-                defaultValue="0"
-                onChange={(e) => { setSorting(parseInt(e.target.value)) }}
+                defaultValue="none"
+                onChange={(e) => { setFilter(e.target.value) }}
                 sx={{
                     display: 'flex',
                     alignSelf: 'flex-start',
@@ -100,72 +112,82 @@ const UserTable = () => {
                         height: '50px',
                     },
                 }}>
-                <MenuItem value="0">
+                <MenuItem value='none'>
                     None
                 </MenuItem>
-                <MenuItem value="1">
-                    FirstName
-                </MenuItem>
-                <MenuItem value="2">
-                    LastName
-                </MenuItem>
-                <MenuItem value="3">
-                    Username
-                </MenuItem>
-                <MenuItem value="4">
-                    Email
-                </MenuItem>
+                {projects.map((project) => (
+                    <MenuItem value={project.name}>
+                        {project.name}
+                    </MenuItem>
+                ))}
             </TextField>
-            <TableContainer component={Paper} sx={{ width: '100%', borderRadius: '10px 10px 0 0', border: '1px solid #d9d9d9' }}>
-                <Table sx={{ width: '100%' }} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>Username</StyledTableCell>
-                            <StyledTableCell align="right">FirstName</StyledTableCell>
-                            <StyledTableCell align="right">LastName</StyledTableCell>
-                            <StyledTableCell align="right">Email</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {loading
-                            ? [...Array(rowsPerPage)].map((_, index) => (
-                                <StyledTableRow key={index}>
-                                    <StyledTableCell>
-                                        <Skeleton variant="text" />
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        <Skeleton variant="text" />
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        <Skeleton variant="text" />
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        <Skeleton variant="text" />
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))
-                            : paginatedUsers.map((user) => (
-                                <StyledTableRow key={user.id}>
-                                    <StyledTableCell component="th" scope="row">
-                                        {user.login}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">{user.firstName}</StyledTableCell>
-                                    <StyledTableCell align="right">{user.lastName}</StyledTableCell>
-                                    <StyledTableCell align="right">{user.email}</StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                    </TableBody>
-                </Table>
-                <TablePagination
-                    rowsPerPageOptions={[rowsPerPage]}
-                    component="div"
-                    count={users.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={() => {}}
-                />
-            </TableContainer>
+            {loading ? (
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100%',
+                }}>
+                    <CircularProgress />
+                </Box>
+            ) : (
+                users.length === 0 ? (
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100%',
+                    }}>
+                        <Typography sx={{
+                            fontWeight: 'bold',
+                            fontSize: '28px',
+                        }}>No users found</Typography>
+                        <Typography sx={{
+                            textAlign: 'center',
+                            width: '270px',
+                            fontWeight: 'bold',
+                            fontSize: '13px',
+                        }}>Sorry, but no users was found for these filters.</Typography>
+                    </Box>
+                ) : (
+                    <TableContainer component={Paper} sx={{ width: '100%', borderRadius: '10px 10px 0 0', border: '1px solid #d9d9d9' }}>
+                        <Table sx={{ width: '100%' }} aria-label="customized table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>Username</StyledTableCell>
+                                    <StyledTableCell align="right">FirstName</StyledTableCell>
+                                    <StyledTableCell align="right">LastName</StyledTableCell>
+                                    <StyledTableCell align="right">Time per day</StyledTableCell>
+                                    <StyledTableCell align="right">Time per week</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {paginatedUsers.map((user) => (
+                                    <StyledTableRow key={user.user.id}>
+                                        <StyledTableCell component="th" scope="row">
+                                            {user.user.username}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">{user.user.firstName}</StyledTableCell>
+                                        <StyledTableCell align="right">{user.user.lastName}</StyledTableCell>
+                                        <StyledTableCell align="right">{user.timePerDay}</StyledTableCell>
+                                        <StyledTableCell align="right">{user.timePerWeek}</StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                        <TablePagination
+                            rowsPerPageOptions={[rowsPerPage]}
+                            component="div"
+                            count={users.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={() => { }}
+                        />
+                    </TableContainer>
+                )
+            )}
         </Box>
     );
 };

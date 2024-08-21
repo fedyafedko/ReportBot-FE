@@ -13,6 +13,11 @@ const Reports = {
         const response = await Api.get<ReportResponse[]>(`/report/${projectId}?FromDate=${request.fromDate}&ToDate=${request.toDate}&UserName=${request.userName}`);
 
         return response;
+    },
+    sentToChat: async (reportId: number): Promise<ApiResponse<boolean>> => {
+        const response = await Api.get<boolean>(`/report/send-report-to-chat?reportId=${reportId}`);
+
+        return response;
     }
 };
 

@@ -12,6 +12,7 @@ import User from "../../api/User";
 import UserResponse from "../../api/models/response/UserResponse";
 import FilterRequest from "../../api/models/request/FilterRequest";
 import Reports from "../../api/Reports";
+import UserStatisticResponse from "../../api/models/response/UserStatisticResponse";
 
 interface FilterProps {
     getFilterReports: (request: FilterRequest) => Promise<void>;
@@ -24,7 +25,7 @@ const FilterPanel: React.FC<FilterProps> = ({ getFilterReports, projectName }) =
     const [selectedProject, setSelectedProject] = useState<string>('1');
     const [selectedUser, setSelectedUser] = useState<string>('1');
     const [projects, setProjects] = useState<ProjectResponse[]>([]);
-    const [users, setUsers] = useState<UserResponse[]>([]);
+    const [users, setUsers] = useState<UserStatisticResponse[]>([]);
 
     useEffect(() => {
         const getReports = async () => {
@@ -47,7 +48,7 @@ const FilterPanel: React.FC<FilterProps> = ({ getFilterReports, projectName }) =
             }
         }
         const getUsers = async () => {
-            const response = await User.getAll(0);
+            const response = await User.getAll('');
             if (response.success) {
                 setUsers(response.data ?? []);
             }
@@ -135,8 +136,8 @@ const FilterPanel: React.FC<FilterProps> = ({ getFilterReports, projectName }) =
                         Users
                     </MenuItem>
                     {users.map((user) => (
-                        <MenuItem key={user.id} value={user.login}>
-                            {user.firstName} {user.lastName}
+                        <MenuItem key={user.user.id} value={user.user.username}>
+                            {user.user.firstName} {user.user.lastName}
                         </MenuItem>
                     ))}
                 </TextField>
