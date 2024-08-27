@@ -52,7 +52,7 @@ const ProjectPage = () => {
             setProject(response.data ?? undefined);
         };
         getProjectById();
-    }, []);
+    }, [id]);
 
     return (
         <Box className={styles.homePage}>
@@ -80,39 +80,31 @@ const ProjectPage = () => {
                         </Box>
                     </Box>
                     <Box className={styles.reportBox}>
-                        <FilterPanel getFilterReports={getReports} projectName='Report Bot' />
+                        <FilterPanel getFilterReports={getReports} projectName={project?.name ?? 'Report Bot'} />
                         <Box className={styles.reportContainer}>
-                            <IconButton aria-label="delete" onClick={scrollLeft}>
+                            <IconButton aria-label="scroll-left" onClick={scrollLeft}>
                                 <KeyboardArrowLeftIcon />
                             </IconButton>
                             <Box className={styles.reportList} ref={scrollContainerRef}>
                                 {reports.length === 0 ? (
                                     <Box className={styles.notFoundBox}>
-                                        <Typography sx={{
-                                            fontWeight: 'bold',
-                                            fontSize: '28px',
-                                        }}>No reports found</Typography>
-                                        <Typography sx={{
-                                            textAlign: 'center',
-                                            width: '270px',
-                                            fontWeight: 'bold',
-                                            fontSize: '13px',
-                                        }}>Sorry, but no report was found for these filters.</Typography>
+                                        <Typography sx={{ fontWeight: 'bold', fontSize: '28px' }}>
+                                            No reports found
+                                        </Typography>
+                                        <Typography sx={{ textAlign: 'center', width: '270px', fontWeight: 'bold', fontSize: '13px' }}>
+                                            Sorry, but no report was found for these filters.
+                                        </Typography>
                                     </Box>
-                                ) :
+                                ) : (
                                     reports.map((report, index) => (
-                                        <Box
-                                            key={index}
-                                            ref={scrollContainerRef}
-                                            className={styles.reportCard}>
+                                        <Box key={index} className={styles.reportCard}>
                                             <Box className={styles.fieldBox}>
                                                 <Field label="Project" content={report.project.name} />
                                                 <Field label="User" content={report.userName} />
                                                 <Field label="Date" content={splitDateTime(report.dateOfShift)} />
                                                 <Field label="Time" content={report.timeOfShift.toString()} />
                                             </Box>
-                                            <Box className={styles.textBox}
-                                                sx={{ transition: "max-height 0.5s ease-in-out" }}>
+                                            <Box className={styles.textBox} sx={{ transition: "max-height 0.5s ease-in-out" }}>
                                                 <Typography
                                                     sx={{
                                                         width: "100%",
@@ -131,9 +123,10 @@ const ProjectPage = () => {
                                                 </Typography>
                                             </Box>
                                         </Box>
-                                    ))}
+                                    ))
+                                )}
                             </Box>
-                            <IconButton aria-label="delete" onClick={scrollRight}>
+                            <IconButton aria-label="scroll-right" onClick={scrollRight}>
                                 <KeyboardArrowRightIcon />
                             </IconButton>
                         </Box>
