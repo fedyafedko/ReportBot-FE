@@ -102,7 +102,6 @@ const ProjectPage = () => {
                                                 <Field label="Project" content={report.project.name} />
                                                 <Field label="User" content={report.userName} />
                                                 <Field label="Date" content={splitDateTime(report.dateOfShift)} />
-                                                <Field label="Time" content={report.timeOfShift.toString()} />
                                             </Box>
                                             <Box className={styles.textBox} sx={{ transition: "max-height 0.5s ease-in-out" }}>
                                                 <Typography

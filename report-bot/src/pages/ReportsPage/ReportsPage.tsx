@@ -87,7 +87,6 @@ const ReportsPage = () => {
                     <Field label="Project" content={report.project.name} />
                     <Field label="User" content={report.userName} />
                     <Field label="Date" content={splitDateTime(report.dateOfShift)} />
-                    <Field label="Time" content={report.timeOfShift.toString()} />
                   </Box>
                   <Box
                     sx={{

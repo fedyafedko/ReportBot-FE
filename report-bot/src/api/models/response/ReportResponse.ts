@@ -7,7 +7,6 @@ interface ReportResponse {
     message: string;
     userName: string;
     dateOfShift: Date;
-    timeOfShift: number;
     chatId: number;
     user: UserResponse;
     project: ProjectResponse;
